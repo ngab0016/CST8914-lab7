@@ -42,7 +42,7 @@
       font-size: 14px;
     }
     
-    
+    /* Remove width constraint for labels containing required indicator */
     .control label {
       width: auto;
       margin-right: 10px;
@@ -273,9 +273,12 @@
             $elementToDescribe.attr('aria-describedby', input + '_description');
             $errorContainer.append('<li id="' + input + '_description">').find('li:last').append($error);
       
+            // Focus management - move focus to error area when errors appear
             if ($(':not(form):focus').length === 0) {
               // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
-            
+              setTimeout(function() {
+                $('fieldset.errors').attr('tabindex', '-1').focus();
+              }, 100);
             }
           } else {
             if ($input.is(':checkbox')) {
@@ -306,4 +309,3 @@
                 
         </body>
       </html>
-
