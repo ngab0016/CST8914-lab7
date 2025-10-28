@@ -1,54 +1,219 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>Form validation with messages on top: Code example - Accessibility Developer Guide example</title>
         <meta charset="utf-8">
-        <style>.control, fieldset {
-      margin: 6px 0;
+        <style>/* Added modern styling while maintaining accessibility */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      margin: 0;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #fff;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .control, fieldset {
+      margin: 20px 0;
     }
     
     label {
       display: inline-block;
-      width: 120px;
+      width: 140px;
       vertical-align: top;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    input[type="text"],
+    textarea {
+      width: calc(100% - 150px);
+      padding: 12px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
     }
     
     input + label {
       width: auto;
+      font-weight: 500;
+      margin-left: 8px;
+      cursor: pointer;
+    }
+    
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #667eea;
+    }
+    
+    fieldset {
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    
+    legend {
+      font-weight: 600;
+      color: #667eea;
+      padding: 0 10px;
+      font-size: 16px;
     }
     
     .error, .required {
-      color: red;
+      color: #e74c3c;
+      font-weight: 600;
+    }
+    
+    fieldset.errors {
+      background: #fee;
+      border-color: #e74c3c;
+      margin-bottom: 20px;
+    }
+    
+    fieldset.errors legend {
+      color: #e74c3c;
     }
     
     fieldset ul {
       margin: 0;
+      padding-left: 20px;
+    }
+    
+    fieldset.errors a {
+      color: #c0392b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    fieldset.errors a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Added styling for nested fieldset to prevent excessive indentation */
+    fieldset fieldset {
+      border: none;
+      padding: 0;
+      margin: 6px 0;
+      background: transparent;
+    }
+    
+    .control span {
+      display: block;
+      margin-left: 150px;
+      font-size: 13px;
+      color: #666;
+      font-style: italic;
+      margin-top: 4px;
+    }
+    
+    /* Register button styling */
+    input[type="submit"] {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      border: none;
+      padding: 14px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    input[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+    }
+    
+    input[type="submit"]:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+    }
+    
+    input[type="submit"]:focus {
+      outline: 3px solid #fff;
+      outline-offset: 2px;
     }</style>
     </head>
     <body>
         <h1>Feedback form</h1>
     <form>
+        <!-- Added for attribute to associate label with input and aria-required for screen readers -->
         <div class="control">
-          <label>Full name <span class="required">*</span></label><input id="name" name="name" type="text" />
-        </div>
-        <div class="control">
-          <label>Biography</label><textarea id="biography" name="biography" type="text"></textarea>
-          <span>Include examples on your skills in JavaScript.</span>
+          <label for="name">Full name <span class="required">* (required)</span></label>
+          <input id="name" name="name" type="text" required aria-required="true" />
         </div>
         
-          <div>Gender</div>
+        <!-- Added for attribute and aria-describedby to link instructions to text area -->
+        <div class="control">
+          <label for="biography">Biography</label>
+          <textarea id="biography" name="biography" aria-describedby="biography-help"></textarea>
+          <span id="biography-help">Include examples on your skills in JavaScript.</span>
+        </div>
+        
+        <!-- Wrapped radio buttons in fieldset with legend for proper grouping and screen reader announcement -->
+        <fieldset>
+          <legend>Gender</legend>
           <div class="control">
-            <input id="gender_male" name="gender" type="radio" value="male" /><label>Male</label>
+            <input id="gender_male" name="gender" type="radio" value="male" />
+            <label for="gender_male">Male</label>
           </div>
           <div class="control">
-            <input id="gender_female" name="gender" type="radio" value="female" /><label>Female</label>
+            <input id="gender_female" name="gender" type="radio" value="female" />
+            <label for="gender_female">Female</label>
           </div>
+        </fieldset>
+        
+        <!-- Added for attribute to properly associate label with checkbox -->
+        <div class="control">
+          <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" />
+          <label for="accept_agbs">I accept the terms and conditions</label>
+        </div>
         
         <div class="control">
-          <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" /><label>I accept the terms and conditions</label>
-        </div>
-        <div class="control">
-          <input name="validate" type="hidden" value="1" /><input type="submit" value="Register" />
+          <input name="validate" type="hidden" value="1" />
+          <input type="submit" value="Register" />
         </div>
       </form>
       
@@ -91,15 +256,15 @@
               $elementToDescribe = $input;
               $referencedElement = $input;
             }
-      // R.G. hint: fix next line ;)
-            $error = $('<a>' + message + '</a>');
+            // Added href attribute to make error link keyboard accessible and include error class
+            $error = $('<a href="#' + $referencedElement.attr('id') + '" class="error">' + message + '</a>');
             $error.click(function (e) {
               // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
               $referencedElement.focus();
               return e.preventDefault();
             });
             $elementToDescribe.attr('aria-describedby', input + '_description');
-            $errorContainer.append('<li>').find('li:last').append($error);
+            $errorContainer.append('<li id="' + input + '_description">').find('li:last').append($error);
       
             if ($(':not(form):focus').length === 0) {
               // See https://stackoverflow.com/questions/46134247/jquery-setting-focus-doesnt-work-in-ie11/
