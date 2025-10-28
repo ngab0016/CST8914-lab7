@@ -17,16 +17,28 @@ html {
 }
 
 body {
-  margin: 30px; /* bottom = newsletter height */
+  margin: 30px;
+  margin-bottom: 100px; /* Increased bottom margin for newsletter height */
   font-family: Lato, sans-serif;
 }
 
 a{
   color: #006b3a;
 }
-main a{
+
+/* Removed outline: none to ensure focus indicators are visible for keyboard users */
+/* main a{
   outline: none;
+} */
+
+/* Added visible focus indicator for all interactive elements */
+a:focus,
+button:focus,
+input:focus {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
 }
+
 h2 {
   margin-top: 0;
 }
@@ -188,6 +200,42 @@ article p {
   margin-right: 16px;
 }
 
+/* Added fancy styling for sign up button */
+.newsletter button {
+  background: linear-gradient(135deg, #006b3a 0%, #009951 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.newsletter button:hover {
+  background: linear-gradient(135deg, #009951 0%, #00b35c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+}
+
+.newsletter button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.newsletter input {
+  padding: 10px 16px;
+  border-radius: 20px;
+  border: 2px solid #006b3a;
+  font-size: 14px;
+  margin-right: 12px;
+  min-width: 250px;
+}
+
 /* Helpers */
 .pull-right {
   float: right;
@@ -206,7 +254,8 @@ article p {
       <nav class="menu">
         <a href="#">Home</a>
         <a href="#">Politics</a>
-        <a href="#" tabindex="-1">Business</a>
+        <!-- Removed tabindex="-1" to restore natural tab order and keyboard accessibility -->
+        <a href="#">Business</a>
         <a href="#">Entertainment</a>
         <a href="#">Sports</a>
         <a href="#" class="btn-search pull-right"><img src="https://raw.githubusercontent.com/udacity/ud891/2de2a0688c68809a3b453db3a24b1a59e8401459/lesson2-focus/02-dom-order/images/search.svg" alt="Search" />Search</a> 
@@ -214,14 +263,7 @@ article p {
       </nav>
     </div>
   </header>
-  <div class="newsletter">
-    <div class="container">
-      <h3>Like the Funion? Consider joining our newsletter!</h3>
-      <input type="text">
-      <button type="button" onfocus="getFocus()">Sign up</button></div>
-      
-    </div>
-  </div>
+  
   <main class="container">
     <h2 class="offscreen">Top story</h2>
     <article class="main-story">
@@ -239,11 +281,13 @@ article p {
     <div class="side-by-side">
       <div class="column">
         <div class="tier-header">
-          <h2 tabindex="0">In the news</h2>
+          <!-- Removed tabindex="0" from heading as headings should not be focusable unless they are landmarks -->
+          <h2>In the news</h2>
         </div>
         <article>
           <h3 class="headline">Bee wonders if maybe everyone else is a drone and he's the only one who has it "figured out."</h3>
-          <p><a href="#" tabindex="1"><b>Read More</b></a></p>
+          <!-- Removed tabindex="1" to restore natural tab order (positive tabindex values disrupt logical flow) -->
+          <p><a href="#"><b>Read More</b></a></p>
           <img src="https://github.com/udacity/ud891/blob/gh-pages/lesson2-focus/02-dom-order/images/bee.jpg?raw=true" alt="A bee on top of a flower" />
         </article>
       </div>
@@ -286,16 +330,28 @@ article p {
     </div>
     
   </main>
+  
+  <!-- Moved newsletter after main content to follow logical DOM order for keyboard navigation -->
+  <div class="newsletter">
+    <div class="container">
+      <h3>Like the Funion? Consider joining our newsletter!</h3>
+      <input type="text" aria-label="Email address for newsletter">
+      <!--  Removed onfocus JavaScript that opened popup and stole focus from users -->
+      <button type="button">Sign up</button>
+    </div>
+  </div>
+  
   <!--   stuff can be added here :)
   <footer>
   </footer>
   -->
   
-  <script>
+  <!-- Removed getFocus() function that opened disruptive popup window -->
+  <!-- <script>
     function getFocus() {
       window.open('https://aidaform.com/templates/thank-you-page-with-redirects.html','mywindow').focus()
     }
-    </script>
+  </script> -->
 </body>
 
 </html>
