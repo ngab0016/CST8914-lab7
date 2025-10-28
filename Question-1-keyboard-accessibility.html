@@ -245,13 +245,14 @@ article p {
 </head>
 
 <body>
+  <!-- Added proper landmark region for header -->
   <header>
 
     <div class="container">
       <h1 class="logo">The Funion</h1>
       
-      <!-- Maybe this could be improved with aria-activedescendant later? -->
-      <nav class="menu">
+      <!-- Added aria-label to navigation landmark for better screen reader identification -->
+      <nav class="menu" aria-label="Main navigation">
         <a href="#">Home</a>
         <a href="#">Politics</a>
         <!-- Removed tabindex="-1" to restore natural tab order and keyboard accessibility -->
@@ -264,6 +265,7 @@ article p {
     </div>
   </header>
   
+  <!-- Main content is identified for screen readers -->
   <main class="container">
     <h2 class="offscreen">Top story</h2>
     <article class="main-story">
@@ -331,15 +333,15 @@ article p {
     
   </main>
   
-  <!-- Moved newsletter after main content to follow logical DOM order for keyboard navigation -->
-  <div class="newsletter">
+  <!-- Moved newsletter after main content and added aside landmark with aria-label -->
+  <aside class="newsletter" aria-label="Newsletter signup">
     <div class="container">
       <h3>Like the Funion? Consider joining our newsletter!</h3>
       <input type="text" aria-label="Email address for newsletter">
-      <!--  Removed onfocus JavaScript that opened popup and stole focus from users -->
+      <!-- Removed onfocus JavaScript that opened popup and stole focus from users -->
       <button type="button">Sign up</button>
     </div>
-  </div>
+  </aside>
   
   <!--   stuff can be added here :)
   <footer>
